@@ -16,7 +16,7 @@ interface Book {
     amazonLink: string;
     pdf: string;
   }
-const page = () => {
+const Page = () => {
     const { bookid } = useParams();
     const router = useRouter()
     const [book, setBook] = useState<Book | null>(null);
@@ -86,4 +86,4 @@ const page = () => {
     )
 }
 
-export default page 
+export default Page 
