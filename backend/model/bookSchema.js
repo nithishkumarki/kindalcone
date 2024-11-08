@@ -29,6 +29,11 @@ const bookSchema=new mongoose.Schema({
     type: String,
     required: true,
   },
+  category: {  
+    type: String,
+    enum: ['Book', 'Comic', 'Sample'], 
+    required: true
+}
 })
 
 const Book=mongoose.model('Book',bookSchema);

@@ -12,10 +12,10 @@ const page = () => {
       <div className={styles.c11}>
         <Image
           src="https://m.media-amazon.com/images/G/01/kfw/landing/img_logo._CB611756372_.png"
-          alt="Amazon Logo"
+          alt="AmazonLogo"
           className={styles.logo}
-          width={500} // specify the width
-          height={500} // specify the height
+          width={500} 
+          height={500} 
         />
         <p className={styles.t1}>Take your stories wherever you go</p>
 

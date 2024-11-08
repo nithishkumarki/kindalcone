@@ -1,13 +1,15 @@
 .main {
     width: 100%;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .row {
-    background-color: rgb(236, 236, 236);
-    width: 100%;
-    height: 100%;
     display: flex;
+    flex: 1; 
+    width: 100%;
+    background-color: rgb(236, 236, 236);
 }
 
 .row .left {
@@ -64,6 +66,7 @@
     color: #333;
     cursor: pointer;
     transition: color 0.3s;
+    
 }
 
 .row .left .menuItems span:hover {
@@ -75,8 +78,8 @@
     display: flex;
     flex-direction: column;
     width: calc(100% - 200px);
-    min-height: 100vh;
-    background-color: #fff;
+    min-height: 100%;
+    background-color:#e3e5ec;
     padding: 20px;
 }
 
@@ -106,10 +109,10 @@
 }
 .bookImage {
     width: 100%;
-    height: auto;
+    height: 100px;
     flex: 1;
     object-fit: cover;
-    filter: grayscale(100%);
+    /* filter: grayscale(100%); */
 }
 
 .bookDetails {
@@ -126,4 +129,195 @@
 .bookAuthor {
     font-size: 14px;
     color: #555;
+}
+/* Hover effect */
+.row .left .menuItems span:hover {
+    background-color: #e6f2ff; /* Light sky blue */
+    color:#111111; /* Darker blue */
+}
+
+/* Active (Click) effect */
+.row .left .menuItems span.active {
+    background-color: #cce6ff; /* Light dark sky blue */
+    color: #254973; /* Change text color to white for better contrast */
+}
+
+.viewToggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.viewToggle p {
+    margin-left: 5px;
+}
+
+.viewDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.viewDropdown span {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.viewDropdown span:hover,
+.viewDropdown .active {
+    background-color: #e0e0e0;
+}
+
+.viewDropdown span svg {
+    margin-right: 5px;
+}
+
+/* Book Display Modes */
+.booksList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bookItemList {
+    display: flex;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bookItemList img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.bookItemList .bookDetails {
+    padding: 10px;
+    background-color: #f9f9f9;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+
+.booksGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.booksList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bookItemGrid {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.bookItemList {
+    display: flex;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+
+
+
+.bookDetails {
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.bookTitle {
+    font-size: 16px;
+    margin: 0 0 10px;
+    font-weight: 700;
+}
+
+.bookAuthor {
+    font-size: 14px;
+    color: #555;
+}
+
+.bookImageGrid {
+    width: 100%;
+    height: 300px; 
+    object-fit: cover; 
+    background-color: #f9f9f9; 
+  
+}
+.bookImageGrid:hover {
+    transform: scale(1.05); 
+}
+
+
+
+.bookImageList {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: #f9f9f9;
+}
+
+.filterDropdown {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 200px;
+    top: 50px;
+    right: 0;
+    padding: 10px 0; /* Add some padding around the dropdown */
+    z-index: 10; /* Ensure the dropdown stays on top */
+}
+
+.filterDropdown span {
+    display: block; /* This ensures the items are in a column layout */
+    padding: 10px 20px; /* Add some padding around the text for spacing */
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.filterDropdown span:hover {
+    background-color: #e6f2ff; 
+    color: #111111;
+}
+
+.filterDropdown span.active {
+    background-color: #cce6ff; 
+    color: #254973; 
 }

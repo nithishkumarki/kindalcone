@@ -22,7 +22,7 @@ const upload=multer({storage: storage});
 //uploading books to mongo db
 router.post('/create',upload.single('pdf') ,async(req,res)=>{
   
-    const {image,title,author,description,price,amazonLink}=req.body;
+    const {image,title,author,description,price,amazonLink, category}=req.body;
     const pdf=req.file.path;
     try {
     const newBook = new Book({
@@ -33,6 +33,7 @@ router.post('/create',upload.single('pdf') ,async(req,res)=>{
         price,
         amazonLink,
         pdf,
+        category, 
       });
 
     await newBook.save();

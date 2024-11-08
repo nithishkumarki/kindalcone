@@ -6,9 +6,15 @@ import { TbArrowsSort } from "react-icons/tb";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import { LuShoppingCart } from "react-icons/lu";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { BsList } from "react-icons/bs";
 
+interface NavbarProps {
+    toggleViewMode: () => void;
+    viewMode: string;
+    toggleFilterMenu: () => void;
+}
 
-const Navbar = () => {
+const Navbar :React.FC<NavbarProps>= ({ toggleViewMode, viewMode,toggleFilterMenu }) => {
     return (
         <nav className={styles.navbar}>
             <div className={styles.left}>
@@ -23,21 +29,22 @@ const Navbar = () => {
                 </div>
             </div>
             <div className={styles.right}>
-                <div className={styles.menuItem}>
+                <div className={styles.menuItem} onClick={toggleFilterMenu}>
                     <LuSettings2 className={styles.filterIcon} />
                     <span className={styles.menuText}>Filter</span>
 
                 </div>
 
-                <div className={styles.menuItem}>
+                {/* <div className={styles.menuItem}>
 
                     <TbArrowsSort className={styles.sortIcon} />
 
                     <span className={styles.menuText}>Sort by: Recent</span>
-                </div>
-                <div className={styles.menuItem}>
+                </div> */}
+                <div className={styles.menuItem}
 
-                    <BsFillGrid3X3GapFill className={styles.viewIcon} />
+                onClick={toggleViewMode}>
+                {viewMode === "grid" ? <BsFillGrid3X3GapFill /> : <BsList />}
 
                     <span className={styles.menuText}>View</span>
                 </div>
