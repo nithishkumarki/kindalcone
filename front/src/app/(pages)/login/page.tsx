@@ -84,7 +84,7 @@ const SignIn = () => {
 
       </form>
       <p className={styles.agreement}>
-        By continuing, you agree to Amazon's
+        By continuing, you agree to Amazons
         <a href="https://www.amazon.com/gp/help/customer/display.html/ref=ap_signin_notification_condition_of_use?ie=UTF8&nodeId=508088"> Conditions of Use</a> and
         <a href="https://www.amazon.com/gp/help/customer/display.html/ref=ap_signin_notification_privacy_notice?ie=UTF8&nodeId=468496"> Privacy Notice</a>.
       </p>

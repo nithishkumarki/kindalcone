@@ -1,11 +1,11 @@
-"use client"
-import React from 'react'
-import styles from './page.module.css'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+"use client";
+import React from 'react';
+import styles from './page.module.css';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
-const page = () => {
-  const router = useRouter()
+const Page = () => { // Rename `page` to `Page`
+  const router = useRouter();
 
   return (
     <div className={styles.c1}>
@@ -20,18 +20,23 @@ const page = () => {
         <p className={styles.t1}>Take your stories wherever you go</p>
 
         <div className={styles.btnRow}>
-          <button className={styles.btn1}
+          <button 
+            className={styles.btn1}
             onClick={() => {
-              router.push('/signup')
-            }}
-          >Create an Amazon account</button>
-
-          <button className={styles.btn2}
-            onClick={() => {
-              router.push('/login')
+              router.push('/signup');
             }}
           >
-            <Image src="https://m.media-amazon.com/images/G/01/kfw/landing/icon-amazon-a._CB611757832_.png"
+            Create an Amazon account
+          </button>
+
+          <button 
+            className={styles.btn2}
+            onClick={() => {
+              router.push('/login');
+            }}
+          >
+            <Image 
+              src="https://m.media-amazon.com/images/G/01/kfw/landing/icon-amazon-a._CB611757832_.png"
               alt="Amazon Logo"
               className={styles.btnicon}
               width={20} // specify the width
@@ -41,14 +46,16 @@ const page = () => {
           </button>
         </div>
       </div>
-      <Image src="	https://m.media-amazon.com/images/G/01/kfw/landing/img_kindleWeb_IN._CB610886625_.png"
+
+      <Image 
+        src="https://m.media-amazon.com/images/G/01/kfw/landing/img_kindleWeb_IN._CB610886625_.png"
         alt="Amazon Logo"
         className={styles.bottomimg}
         width={1000} // specify the width
         height={500} // specify the height 
       />
     </div>
-  )
+  );
 }
 
-export default page
+export default Page; // Ensure the component name matches the filename
