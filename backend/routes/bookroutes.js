@@ -1,86 +1,69 @@
 const express = require('express');
-const multer=require('multer');
-const path=require('path');
-const Book=require('../model/bookSchema');
-const router=express.Router();
+const multer = require('multer');
+const path = require('path');
+const Book = require('../model/bookSchema');
+const router = express.Router();
 
-const storage=multer.diskStorage({
-    destination : function (req,file,cd)
-    {
-        cd(null,'uploads/');
+// Configure Multer storage for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
     },
-    filename : function(req,file,cd)
-    {
-        cd(null, `${Date.now()}-${file.originalname}`);
-
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
     }
-})
+});
+const upload = multer({ storage: storage });
 
+// Route to create a new book
+router.post('/create', upload.single('pdf'), async (req, res) => {
+    const { image, title, author, description, price, amazonLink, category } = req.body;
+    const pdf = req.file ? req.file.path : null;
 
-//sorted in upload ,this fun wold be called
-const upload=multer({storage: storage});
-//uploading books to mongo db
-router.post('/create',upload.single('pdf') ,async(req,res)=>{
-  
-    const {image,title,author,description,price,amazonLink, category}=req.body;
-    const pdf=req.file.path;
     try {
-    const newBook = new Book({
-        image,
-        title,
-        author,
-        description,
-        price,
-        amazonLink,
-        pdf,
-        category, 
-      });
-
-    await newBook.save();
-    res.status(201).json({ message: 'Book created successfully', book: newBook });
-
-
-  }
-  catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error in bookRoutes' });
-  }
-
-})
-///showing all books
-router.get('/all',async (req,res)=>{
-       try{
-         const books=await Book.find();
-         res.status(200).json(books);
-       }
-       catch(error)
-       {
+        const newBook = new Book({
+            image,
+            title,
+            author,
+            description,
+            price,
+            amazonLink,
+            pdf,
+            category,
+        });
+        await newBook.save();
+        res.status(201).json({ message: 'Book created successfully', book: newBook });
+    } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error in bookRoutes' });
-       }
-})
-// get book by specific id
-router.get('/:id',async(req,res)=>{
-    const {id}=req.params;
+    }
+});
 
-    try{
-        const book=await Book.findById(id);
-        if(!book)
-        {
-            return res.status(404).json({message:'book not found'});
+// Route to get all books
+router.get('/all', async (req, res) => {
+    try {
+        const books = await Book.find();
+        res.status(200).json(books);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error in bookRoutes' });
+    }
+});
 
+// Route to get book by ID
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const book = await Book.findById(id);
+        if (!book) {
+            return res.status(404).json({ message: 'Book not found' });
         }
         res.status(200).json(book);
-    }
-    catch(error)
-       {
+    } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Server error in finding id of book' });
-       }
+        res.status(500).json({ message: 'Server error in finding ID of book' });
+    }
+});
 
-})
-
-
-
-
-module.exports=router;
+module.exports = router;

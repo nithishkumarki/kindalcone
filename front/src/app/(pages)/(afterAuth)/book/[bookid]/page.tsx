@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import styles from "./Book.module.css";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-const apiurl = process.env.NEXT_PUBLIC_API_URL
+import { useParams, useRouter } from "next/navigation";
+
+const apiurl = process.env.NEXT_PUBLIC_API_URL;
 
 interface Book {
     _id: string;
@@ -15,41 +15,35 @@ interface Book {
     price: string;
     amazonLink: string;
     pdf: string;
-  }
-const Page = () => {
+}
+
+const BookPage = () => {
     const { bookid } = useParams();
-    const router = useRouter()
+    const router = useRouter();
     const [book, setBook] = useState<Book | null>(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchBook = async () => {
             try {
-                const response = await fetch(apiurl+`/api/books/${bookid}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch book data');
-                }
+                const response = await fetch(`${apiurl}/api/books/${bookid}`);
+                if (!response.ok) throw new Error("Failed to fetch book data");
                 const data = await response.json();
                 setBook(data);
                 setLoading(false);
-            }
-            catch(err){
-                setError(err.message);
+            } catch (err) {
+                console.error(err);
+                setError(err instanceof Error ? err.message : "An error occurred");
                 setLoading(false);
             }
-        }
-        fetchBook()
-    },[])
+        };
+        fetchBook();
+    }, [bookid]);
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
 
-    if (loading) {
-        return <p>Loading...</p>;
-    }
-
-    if (error) {
-        return <p>{error}</p>;
-    }
     return (
         <div className={styles.main}>
             <Navbar />
@@ -64,26 +58,17 @@ const Page = () => {
                         className={styles.bookDescription}
                         dangerouslySetInnerHTML={{ __html: book.description }}
                     />
-
                     <p className={styles.bookPrice}>{book.price}</p>
-
-                    <button className={styles.purchaseButton}
-                        onClick={() => {
-                               // add payment check here
-
-
-                                // assuming already paid
-                            router.push(`/read/${bookid}`)
-                        }}
-                    >Start Reading</button>
-
-                    {/* <button className={styles.purchaseButton}>Buy on Amazon</button> */}
-
+                    <button
+                        className={styles.purchaseButton}
+                        onClick={() => router.push(`/read/${bookid}`)}
+                    >
+                        Start Reading
+                    </button>
                 </div>
             </div>
-
         </div>
-    )
-}
+    );
+};
 
-export default Page 
+export default BookPage;
