@@ -49,16 +49,32 @@ const Page = () => {
     useEffect(() => {
         const fetchAllBooks = async () => {
             try {
+                const token = localStorage.getItem("token");
 
-                //fetches all from the back end 
-                const response = await fetch(apiurl + "/api/books/all");
+        if (!token) {
+          setError("No token found. Please log in.");
+          setLoading(false);
+          return;
+        }
+
+            
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/books/all`, {
+                    method: 'GET',
+                    
+                    headers: {
+                        
+                         'Authorization': `Bearer ${token}`,
+                         'Content-Type': 'application/json'
+                     
+                    },
+                  });
 
                 if (!response.ok) {
                     throw new Error("Failed to fetch books");
                 }
-                //typescript where data is a array , of type Book interface
+                
                 const data: Book[] = await response.json();
-                // saved to setAllbooks
+                
                 setAllBooks(data);
                 setLoading(false);
             } catch (err) {

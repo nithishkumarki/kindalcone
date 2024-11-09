@@ -33,7 +33,9 @@ const bookSchema=new mongoose.Schema({
     type: String,
     enum: ['Book', 'Comic', 'Sample'], 
     required: true
-}
+},
+addedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+
 })
 
 const Book=mongoose.model('Book',bookSchema);

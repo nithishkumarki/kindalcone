@@ -55,10 +55,18 @@ const handleSubmit = async (e: React.FormEvent) => {
           formDataToSend.append(key, value);
         }
     });
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert("User not authenticated. Please log in.");
+      return;
+  }
 
     try {
       const response = await fetch(apiurl + "/api/books/create", {
         method: "POST",
+        headers: {
+          'Authorization': `Bearer ${token}`, // Add the token in Authorization header
+      },
         body: formDataToSend,
       });
 

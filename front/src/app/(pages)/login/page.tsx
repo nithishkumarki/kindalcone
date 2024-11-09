@@ -30,8 +30,9 @@ const SignIn = () => {
       if (response.ok) {
         const data = await response.json();
         alert('Login successful');
-        // Store token or handle login success (e.g., redirect)
-        console.log('Token:', data.token);
+       
+        
+        localStorage.setItem('token', data.token);
       router.push('/kindle-library')
       } 
 

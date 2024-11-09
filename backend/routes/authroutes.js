@@ -37,7 +37,7 @@ router.post('/signup', async(req,res)=>
 router.post('/login', async(req,res)=>{ 
     const {email,password}=req.body;
     try{
-         ///check if the user exit in db
+       
         const user=await User.findOne({email});
         if(!user)
         {
@@ -50,13 +50,13 @@ router.post('/login', async(req,res)=>{
         {
             return res.status(200).json({message:'Invalid Credientals'});
         }
-// pay load has id ,id is essential because this is what allows the server to identify the user in future requests.
+
         const payload={
             user:{
-                id: user.id,//storing usser id in token
+                id: user.id,
             },
         };
-        //creates a token send to client and with this we can commuijcate with server
+       
         jwt.sign(
             payload, process.env.JWT_SECRET,{expiresIn:'1h'},
             (err,token)=>{
