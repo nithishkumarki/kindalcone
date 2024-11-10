@@ -3,13 +3,15 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const authRoute = require('./routes/authroutes');
 const bookRoute = require('./routes/bookroutes');
+const userRoute = require('./routes/userroutes');
 const bodyParser = require('body-parser');
 const path = require('path');
 require('./db');
 const app = express();
 
-dotenv.config();
 
+
+dotenv.config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -29,6 +31,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Define routes
 app.use('/api/books', bookRoute);
 app.use('/api/auth', authRoute);
+app.use('/api/user', userRoute);
 
 // Start the server
 const port = process.env.PORT || 5000;

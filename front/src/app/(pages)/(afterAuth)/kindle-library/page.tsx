@@ -1,4 +1,3 @@
-
 "use client";
 import Navbar from "@/components/Navbar";
 import AddBookForm from "@/components/AddBookForm";
@@ -24,14 +23,16 @@ interface Book {
 const Page = () => {
     const router = useRouter();
     const [show, setShow] = useState(false);
-    const [allBooks, setAllBooks] = useState<Book[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedTheme, setSelectedTheme] = useState<string>('All Titles');   
     const [activeItem, setActiveItem] = useState<string>('All Titles');
     const [viewMode, setViewMode] = useState("grid"); 
     const [filterMenuVisible, setFilterMenuVisible] = useState(false);
+    
     const [showForm, setShowForm] = useState(false);
+
+    const [allBooks, setAllBooks] = useState<Book[]>([]);
 
     const handleItemClick = (theme: string) => {
         setSelectedTheme(theme);
@@ -47,8 +48,9 @@ const Page = () => {
       };
 
     useEffect(() => {
-        const fetchAllBooks = async () => {
-            try {
+        const fetchAllBooks = async () => 
+            {
+                try {
                 const token = localStorage.getItem("token");
 
         if (!token) {
@@ -58,14 +60,11 @@ const Page = () => {
         }
 
             
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/books/all`, {
+                const response = await fetch(`http://localhost:5000/api/books/all`, {
                     method: 'GET',
-                    
                     headers: {
-                        
                          'Authorization': `Bearer ${token}`,
-                         'Content-Type': 'application/json'
-                     
+                         'Content-Type': 'application/json'                    
                     },
                   });
 
@@ -156,18 +155,10 @@ const Page = () => {
                     <h1>{selectedTheme}</h1> 
                     <div className={viewMode === "grid" ? styles.booksGrid : styles.booksList}>
                         {filteredBooks.map((book) => (
-                            <div
-                                onClick={() => {
-                                    router.push(`/book/${book._id}`);
-                                }}
-                                key={book._id}
-                                className={viewMode == "grid" ? styles.bookItemGrid : styles.bookItemList}
-                            >
-                                <img
-                                    src={book.image}
-                                    alt={book.title}
-                                    className={viewMode === "grid" ? styles.bookImageGrid : styles.bookImageList}
-                                />
+                            <div onClick={() => {router.push(`/book/${book._id}`);}} key={book._id}
+                                className={viewMode == "grid" ? styles.bookItemGrid : styles.bookItemList}>
+                                <img src={book.image} alt={book.title} className={viewMode === "grid" ? styles.bookImageGrid : styles.bookImageList}/>
+
                                 <div className={styles.bookDetails}>
                                     <h3 className={styles.bookTitle}>{book.title}</h3>
                                     <p className={styles.bookAuthor}>{book.author}</p>

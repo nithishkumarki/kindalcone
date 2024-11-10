@@ -2,10 +2,12 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const Book = require('../model/bookSchema');
+const User=require('../model/userSchema');
+
 const router = express.Router();
 const authenticateUser = require('../authenticateUser');
 
-// Configure Multer storage for file uploads
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/');
@@ -31,7 +33,6 @@ router.post('/create', authenticateUser, upload.single('pdf'), async (req, res) 
           title,
           author,
           description,
-          price,
           amazonLink,
           pdf,
           category,
@@ -50,6 +51,7 @@ router.post('/create', authenticateUser, upload.single('pdf'), async (req, res) 
 
 router.get('/all',authenticateUser, async (req, res) => {
     try {
+       
       const userId = req.user.id;
         const books = await Book.find({ addedBy: userId });
         if (!books) {
@@ -78,5 +80,43 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: 'Server error in finding ID of book' });
     }
 });
+router.delete('/:id', authenticateUser, async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const userId = req.user.id; 
+        const book = await Book.findOneAndDelete({ _id: id,addedBy: userId});
+         
+        if (!book) 
+        {
+            return res.status(404).json({ message: 'Book not found ' });
+        }
+        res.status(200).json({ message: 'Book deleted' });
+    } 
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Servererror in delete book' });
+    }
+});
+//edit book 
+router.put('/:id', authenticateUser, async (req, res) => {
+    const { id } = req.params;
+    const { title, author, description, image, category } = req.body;
+
+    try 
+    {
+        //upadets to db
+        const updatedBook = await Book.findByIdAndUpdate(id,{ title, author, description, image, category },{ new: true } );
+
+        if (!updatedBook) {
+            return res.status(404).json({ message: 'Book not found' });
+        }
+        res.status(200).json({ message: 'Book updated', book: updatedBook });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error in updating book' });
+    }
+});
+
 
 module.exports = router;

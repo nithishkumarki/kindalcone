@@ -6,7 +6,7 @@ interface FormData {
     title: string;
     author: string;
     description: string;
-    price: string;
+
     amazonLink: string;
     category: string;
     image: string;
@@ -18,7 +18,6 @@ function AddBookForm()
     title: "",
     author: "",
     description: "",
-    price: "",
     amazonLink: "",
     category: "Book",
     image: "",
@@ -106,14 +105,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         placeholder="Description"
         required
       />
-      <input
-        type="text"
-        name="price"
-        value={formData.price}
-        onChange={handleChange}
-        placeholder="Price"
-        required
-      />
+    
       <input
         type="text"
         name="amazonLink"

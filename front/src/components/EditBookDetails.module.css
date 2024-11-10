@@ -1,0 +1,51 @@
+/* EditBookDetails.module.css */
+
+.editBookForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 500px;
+    margin: auto;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.editBookForm input,
+.editBookForm textarea,
+.editBookForm select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.editBookForm textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.editBookForm button {
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: #0070f3;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.editBookForm button:hover {
+    background-color: #005bb5;
+}
+
+.editBookForm button[type="button"] {
+    background-color: #777;
+}
+
+.editBookForm button[type="button"]:hover {
+    background-color: #555;
+}

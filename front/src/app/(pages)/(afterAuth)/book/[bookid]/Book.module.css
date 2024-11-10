@@ -83,3 +83,10 @@
 .purchaseButton:hover {
     background-color: #e68a00;
 }
+.editBookForm {
+    width: 300px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

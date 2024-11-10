@@ -1,0 +1,64 @@
+.main {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.usersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.userCard {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.booksContainer {
+  margin-top: 2rem;
+}
+
+.booksList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bookItemList {
+  display: flex;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.bookImageList {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  background-color: #f9f9f9;
+}
+
+.bookDetails {
+  padding: 10px;
+  background-color: #f9f9f9;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bookTitle {
+  font-size: 16px;
+  margin: 0 0 5px;
+  font-weight: 700;
+}
+
+.bookAuthor {
+  font-size: 14px;
+  color: #555;
+}

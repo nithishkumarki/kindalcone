@@ -9,6 +9,7 @@ const authenticateUser = (req, res, next) => {
   }
 
   try {
+    // checks token->payload->userid 
     const decoded = jwt.verify(token, process.env.JWT_SECRET); 
     req.user = decoded.user; 
     next(); 
